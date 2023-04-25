@@ -1,32 +1,35 @@
 import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
   Avatar,
   Box,
-  Button,
+  Chip,
   Container,
   Typography,
-  Chip,
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
 } from "@mui/material";
 
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 import { useEffect } from "react";
-import user from "./user.json";
+import { useLoading } from "../../context/loading.context";
+import { useUser } from "../../context/user.context";
+// import user from "./user?.json";
 
 const MainCard = () => {
-  // const [user, setUser] = useState({});
+  const { user, setUser } = useUser();
+  const { loading, setLoading } = useLoading();
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(false);
       // const userResponse = await fetch(
       //   "https://tranquil-thicket-22159.herokuapp.com/http://torre.bio/api/bios/jg175415"
       // );
       // const userData = await userResponse.json();
-
-      console.log(user);
+      // console.log(userData);
       // setUser(userData);
+      setLoading(false);
     };
     fetchData();
   }, []);
@@ -41,7 +44,7 @@ const MainCard = () => {
           backgroundColor: "blue",
         }}
       >
-        <Typography variant="body1">{user.person.name}</Typography>
+        <Typography variant="body1">{user?.person?.name}</Typography>
       </Box>
       <Box
         sx={{
@@ -53,7 +56,7 @@ const MainCard = () => {
       >
         <Avatar
           alt="User profile picture"
-          src={user.person.picture}
+          src={user?.person?.picture}
           sx={{ width: 80, height: 80 }}
         />
       </Box>
@@ -66,7 +69,7 @@ const MainCard = () => {
         }}
       >
         <Typography variant="body1">
-          {user.person.professionalHeadline}
+          {user?.person?.professionalHeadline}
         </Typography>
       </Box>
       <Box
@@ -88,22 +91,20 @@ const MainCard = () => {
           <Typography>Master</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Chip
-            label="Clickable Link"
-            component="a"
-            href="#basic-chip"
-            variant="outlined"
-            clickable
-          />
-          {user.strengths.map((strength) => (
-            <Chip
-              label={strength.name}
-              component="a"
-              href="#basic-chip"
-              variant="outlined"
-              clickable
-            />
-          ))}
+          {user?.strengths &&
+            user?.strengths.map(
+              (strength) =>
+                strength.proficiency === "master" && (
+                  <Chip
+                    label={strength.name}
+                    component="a"
+                    href="#basic-chip"
+                    variant="outlined"
+                    key={strength.id}
+                    clickable
+                  />
+                )
+            )}
         </AccordionDetails>
       </Accordion>
       <Accordion>
@@ -115,10 +116,20 @@ const MainCard = () => {
           <Typography>Expert</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-            malesuada lacus ex, sit amet blandit leo lobortis eget.
-          </Typography>
+          {user?.strengths &&
+            user?.strengths.map(
+              (strength) =>
+                strength.proficiency === "expert" && (
+                  <Chip
+                    label={strength.name}
+                    component="a"
+                    href="#basic-chip"
+                    variant="outlined"
+                    key={strength.id}
+                    clickable
+                  />
+                )
+            )}
         </AccordionDetails>
       </Accordion>
       <Accordion>
