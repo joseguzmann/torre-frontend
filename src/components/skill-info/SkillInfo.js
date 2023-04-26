@@ -10,6 +10,7 @@ import {
   Link,
   Tooltip,
   Typography,
+  Avatar,
 } from "@mui/material";
 
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -98,7 +99,7 @@ const SkillInfo = () => {
             fontWeight: "lighter",
           }}
         >
-          Recommendations : {skill?.info?.recommendations || "Unavailable"}
+          Recomendations : {skill?.info?.recomendations || "0"}
         </Typography>
       </Box>
       <Accordion
@@ -142,46 +143,61 @@ const SkillInfo = () => {
               alignItems: "center",
             }}
           >
-            {skill?.relatedInfo?.relatedExperiences.map((experience) => (
-              <Grid item xs={9}>
-                <Card
-                  sx={{
-                    backgroundColor: "rgba(0,0,0,.7)",
-                    minHeight: "100%",
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                  }}
-                >
-                  <CardContent>
-                    <Typography
-                      sx={{ fontSize: 14 }}
-                      color="text.secondary"
-                      gutterBottom
+            {skill?.relatedInfo?.relatedExperiences.length > 0 ? (
+              <>
+                {skill?.relatedInfo?.relatedExperiences.map((experience) => (
+                  <Grid item xs={9}>
+                    <Card
+                      sx={{
+                        backgroundColor: "rgba(0,0,0,.7)",
+                        minHeight: "100%",
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                      }}
                     >
-                      {experience?.organizations[0]?.name || "Unavailable"} (
-                      {experience?.category || "Unavailable"})
-                    </Typography>
-                    <Typography
-                      variant="h5"
-                      component="div"
-                      color="rgba(209, 223, 73, .8)"
-                    >
-                      {experience?.name || "Unavailable"}
-                    </Typography>
-                    <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                      From {experience?.fromMonth || "Unavailable"},{" "}
-                      {experience?.fromYear || "Unavailable"} to{" "}
-                      {experience?.toMonth || "Unavailable"},{" "}
-                      {experience?.toYear || "Unavailable"}
-                    </Typography>
-                    <Typography variant="body2">
-                      {experience?.remote ? "Remote" : "On-site"}
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-            ))}
+                      <CardContent>
+                        <Typography
+                          sx={{ fontSize: 14 }}
+                          color="text.secondary"
+                          gutterBottom
+                        >
+                          {experience?.organizations[0]?.name || "Unavailable"}{" "}
+                          ({experience?.category || "Unavailable"})
+                        </Typography>
+                        <Typography
+                          variant="h5"
+                          component="div"
+                          color="rgba(209, 223, 73, .8)"
+                        >
+                          {experience?.name || "Unavailable"}
+                        </Typography>
+                        <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                          From {experience?.fromMonth || "Unavailable"},{" "}
+                          {experience?.fromYear || "Unavailable"} to{" "}
+                          {experience?.toMonth || "Unavailable"},{" "}
+                          {experience?.toYear || "Unavailable"}
+                        </Typography>
+                        <Typography variant="body2">
+                          {experience?.remote ? "Remote" : "On-site"}
+                        </Typography>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+                ))}
+              </>
+            ) : (
+              <Typography
+                variant="body"
+                sx={{
+                  color: "rgba(255,255,255, 0.9)",
+                  fontWeight: "lighter",
+                  pt: 2,
+                }}
+              >
+                Empty
+              </Typography>
+            )}
           </Grid>
         </AccordionDetails>
       </Accordion>
@@ -226,42 +242,70 @@ const SkillInfo = () => {
               alignItems: "center",
             }}
           >
-            {skill?.relatedUsers?.results.map((result) => (
-              <Grid item xs={6}>
-                <Card
-                  sx={{
-                    backgroundColor: "rgba(0,0,0,.7)",
-                    minHeight: "100%",
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                  }}
-                >
-                  <CardContent>
-                    <Link
-                      href={`https://torre.co/${result?.username}`}
-                      underline="hover"
-                      variant="h5"
+            {skill?.relatedUsers?.results.length > 0 ? (
+              <>
+                {skill?.relatedUsers?.results.map((result) => (
+                  <Grid item xs={6}>
+                    <Card
+                      sx={{
+                        backgroundColor: "rgba(0,0,0,.7)",
+                        minHeight: "100%",
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
                     >
-                      {result?.name || "Unavailable"}
-                    </Link>
-                    <Typography
-                      sx={{ fontSize: 14 }}
-                      color="text.secondary"
-                      gutterBottom
-                    >
-                      {result?.professionalHeadline || "Unavailable"}
-                    </Typography>
-                    <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                      {result?.locationName || "Unavailable"}
-                    </Typography>
-                    <Typography variant="body2">
-                      Username: {result?.username || "Unavailable"}
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-            ))}
+                      <CardContent
+                        sx={{
+                          display: "flex",
+                          flexDirection: "column",
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
+                      >
+                        <Link
+                          href={`https://torre.co/${result?.username}`}
+                          underline="hover"
+                          variant="h5"
+                        >
+                          {result?.name || "Unavailable"}
+                        </Link>
+                        <Avatar
+                          alt="Profile picture"
+                          src={result?.picture}
+                          sx={{ width: 50, height: 50, boxShadow: 3, m: 2 }}
+                        />
+                        <Typography
+                          sx={{ fontSize: 14 }}
+                          color="text.secondary"
+                          gutterBottom
+                        >
+                          {result?.professionalHeadline || "Unavailable"}
+                        </Typography>
+                        <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                          {result?.locationName || "Unavailable"}
+                        </Typography>
+                        <Typography variant="body2">
+                          Username: {result?.username || "Unavailable"}
+                        </Typography>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+                ))}
+              </>
+            ) : (
+              <Typography
+                variant="body"
+                sx={{
+                  color: "rgba(255,255,255, 0.9)",
+                  fontWeight: "lighter",
+                  pt: 2,
+                }}
+              >
+                Empty
+              </Typography>
+            )}
           </Grid>
         </AccordionDetails>
       </Accordion>

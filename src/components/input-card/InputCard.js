@@ -7,7 +7,13 @@ import {
   TextField,
   Typography,
   styled,
+  Tooltip,
+  IconButton,
+  Popover,
+  Link,
 } from "@mui/material";
+
+import HelpIcon from "@mui/icons-material/Help";
 
 import { useState } from "react";
 import { useLoading } from "../../context/loading.context";
@@ -75,6 +81,19 @@ const InputCard = () => {
 
   const [id, setId] = useState("");
 
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const open = Boolean(anchorEl);
+  const idp = open ? "simple-popover" : undefined;
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   const handleSubmit = async () => {
     setLoading(true);
     try {
@@ -103,7 +122,7 @@ const InputCard = () => {
           sx={{
             display: "flex",
             alignItems: "center",
-            justifyContent: "space-around",
+            justifyContent: "center",
             backgroundColor: "rgba(0,0,0, .4)",
             padding: 2,
             borderRadius: 2,
@@ -117,6 +136,7 @@ const InputCard = () => {
               color: "#ffddcc",
               fontWeight: "lighter",
               textTransform: "uppercase",
+              mr: 1,
             }}
           >
             Please enter your user ID:
@@ -164,6 +184,32 @@ const InputCard = () => {
           >
             SEARCH
           </MyButton>
+          <Tooltip onClick={handleClick}>
+            <IconButton>
+              <HelpIcon />
+            </IconButton>
+          </Tooltip>
+          <Popover
+            id={idp}
+            open={open}
+            anchorEl={anchorEl}
+            onClose={handleClose}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "left",
+            }}
+          >
+            <Typography sx={{ p: 2 }}>
+              To access your profile data, enter your Torre user ID, <br />
+              which can be found in the Torre link of your profile. <br />
+              For instance, my profile link is{" "}
+              <Link href="https://torre.co/jg175415">
+                https://torre.co/jg175415
+              </Link>
+              , <br />
+              so my ID is <b>jg175415</b>.
+            </Typography>
+          </Popover>
         </Box>
       </Container>
       <Snackbar
