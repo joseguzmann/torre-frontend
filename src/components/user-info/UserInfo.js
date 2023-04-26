@@ -38,10 +38,14 @@ const UserInfo = () => {
         user?.person?.publicId,
         skill.id
       );
-      // const relatedUsersData = await fetchUsersWithSimilarSkill();
+      const relatedUsersData = await fetchUsersWithSimilarSkill(
+        skill?.name,
+        skill?.proficiency
+      );
       const newSkillObject = {
         info: skill,
         relatedInfo: relatedExperiencesData,
+        relatedUsers: relatedUsersData,
       };
       console.log(newSkillObject);
       setSkill(newSkillObject);

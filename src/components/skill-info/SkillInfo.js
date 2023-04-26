@@ -13,6 +13,7 @@ import {
   Card,
   CardContent,
   CardActions,
+  Link,
 } from "@mui/material";
 
 import WestIcon from "@mui/icons-material/West";
@@ -230,10 +231,44 @@ const SkillInfo = () => {
               textAlign: "center",
               justifyContent: "center",
               alignItems: "center",
-              mx: 10,
             }}
           >
-            <Typography>Related people</Typography>
+            {skill?.relatedUsers?.results.map((result) => (
+              <Grid item xs={6}>
+                <Card
+                  sx={{
+                    backgroundColor: "rgba(0,0,0,.7)",
+                    minHeight: "100%",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                  }}
+                >
+                  <CardContent>
+                    <Link
+                      href={`https://torre.co/${result?.username}`}
+                      underline="hover"
+                      variant="h5"
+                    >
+                      {result?.name || "Unavailable"}
+                    </Link>
+                    <Typography
+                      sx={{ fontSize: 14 }}
+                      color="text.secondary"
+                      gutterBottom
+                    >
+                      {result?.professionalHeadline || "Unavailable"}
+                    </Typography>
+                    <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                      {result?.locationName || "Unavailable"}
+                    </Typography>
+                    <Typography variant="body2">
+                      Username: {result?.username || "Unavailable"}
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+            ))}
           </Grid>
         </AccordionDetails>
       </Accordion>

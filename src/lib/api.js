@@ -25,17 +25,17 @@ const fetchRelatedExperiences = async (user_id, skill_id) => {
 
 /**
  *
- * @param skill - Name of the skill we are trying to find in users
+ * @param skill_id - Name of the skill we are trying to find in users
  * @param proficiency - Proficiency of the skill we are trying to find in users
  * @returns - JSON body of HTTP Response object
  */
-const fetchUsersWithSimilarSkill = async (skill, proficiency) => {
+const fetchUsersWithSimilarSkill = async (skill_id, proficiency) => {
   const PROXY_URL = process.env.REACT_APP_CORS_PROXY;
   const BASE_URL = `${PROXY_URL}https://search.torre.co/people/_search`;
 
   const bodyData = {
     and: [
-      { "skill/role": { text: `${skill}`, proficiency: `${proficiency}` } },
+      { "skill/role": { text: `${skill_id}`, proficiency: `${proficiency}` } },
     ],
   };
 
