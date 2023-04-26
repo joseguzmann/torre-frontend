@@ -26,6 +26,9 @@ const MyTextField = styled(TextField)({
     "&:focus-within fieldset": {
       borderColor: "rgba(0, 0, 0, 0.4)",
     },
+    "& fieldset": {
+      borderColor: "rgba(0, 0, 0, 0.2)",
+    },
   },
 });
 
@@ -42,7 +45,7 @@ const MyButton = styled(Button)({
   borderColor: "rgba(105,105,105)",
   "&:hover": {
     backgroundColor: "rgba(0,0,0, .6)",
-    borderColor: "rgb(169,169,169)",
+    borderColor: "rgba(0, 0, 0, 0.4)",
     boxShadow: "none",
   },
   "&:active": {
@@ -138,7 +141,6 @@ const InputCard = () => {
           variant="contained"
           type="button"
           onClick={handleSubmit}
-          color="warning"
           sx={{
             mx: 1,
           }}

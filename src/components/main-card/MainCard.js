@@ -1,166 +1,75 @@
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Avatar,
-  Box,
-  Chip,
-  Container,
-  Typography,
-} from "@mui/material";
+import { Box, Chip, Container, Typography, Avatar } from "@mui/material";
 
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-
-import { useEffect } from "react";
 import { useLoading } from "../../context/loading.context";
 import { useUser } from "../../context/user.context";
+import UserInfo from "../user-info/UserInfo";
+import { useSkill } from "../../context/skill.context";
+import SkillInfo from "../skill-info/SkillInfo";
 // import user from "./user?.json";
 
 const MainCard = () => {
   const { user, setUser } = useUser();
+  const { skill, setSkill } = useSkill();
   const { loading, setLoading } = useLoading();
 
-  const proficiencyList = [
-    "master",
-    "expert",
-    "proficient",
-    "novice",
-    "no-experience-interested",
-  ];
-
   return (
-    <Container maxWidth="md">
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-around",
-          backgroundColor: "rgba(0,0,0, .4)",
-          padding: 2,
-          borderRadius: "20px 20px 0px 0px",
-          boxShadow: 2,
-        }}
-      >
-        <Typography
-          variant="body1"
+    <>
+      <Container maxWidth="md">
+        <Box
           sx={{
-            color: "#ffddcc",
-            fontWeight: "lighter",
-            textTransform: "uppercase",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            backgroundColor: "rgba(0,0,0, .4)",
+            py: 2,
+            px: 3,
+            borderRadius: "20px 20px 0px 0px",
+            boxShadow: 2,
           }}
         >
-          {user?.person?.name}
-        </Typography>
-      </Box>
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-around",
-          backgroundColor: "rgba(0,0,0, .1)",
-          py: 2,
-        }}
-      >
-        <Avatar
-          alt="User profile picture"
-          src={user?.person?.picture}
-          sx={{ width: 150, height: 150, boxShadow: 3 }}
-        />
-      </Box>
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-around",
-          backgroundColor: "rgba(0,0,0, .4)",
-          padding: 1,
-          boxShadow: 2,
-        }}
-      >
-        <Typography
-          variant="body2"
-          sx={{
-            color: "#ffddcc",
-            fontWeight: "lighter",
-            // textTransform: "uppercase",
-          }}
-        >
-          {user?.person?.professionalHeadline}
-        </Typography>
-      </Box>
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          backgroundColor: "rgba(0,0,0, .1)",
-          py: 2,
-          color: "white",
-        }}
-      >
-        <Typography
-          variant="body"
-          sx={{
-            color: "rgba(255,255,255, 0.9)",
-            fontWeight: "lighter",
-            textTransform: "uppercase",
-          }}
-        >
-          Skills and interests:
-        </Typography>
-      </Box>
-      {proficiencyList.map((proficiency) => (
-        <Accordion
-          sx={{
-            backgroundColor: "rgba(0,0,0,0)",
-          }}
-        >
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
+          <Typography
+            variant="body1"
             sx={{
-              backgroundColor: "rgba(0,0,0,.4)",
+              color: "#ffddcc",
+              fontWeight: "lighter",
+              textTransform: "uppercase",
             }}
           >
-            <Typography
-              sx={{
-                color: "#ffddcc",
-                fontWeight: "lighter",
-                textTransform: "uppercase",
-              }}
-            >
-              {proficiency.toUpperCase()}
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              flexWrap: "wrap",
-              backgroundColor: "rgba(0,0,0, .1)",
-              py: 2,
-              color: "white",
+            {user?.person?.name}
+          </Typography>
+          <Chip
+            label="CHANGE USER"
+            component="a"
+            variant="outlined"
+            clickable
+            onClick={() => {
+              setSkill(null);
+              setUser(null);
             }}
-          >
-            {user?.strengths &&
-              user?.strengths.map(
-                (strength) =>
-                  strength.proficiency === proficiency && (
-                    <Chip
-                      label={strength.name}
-                      component="a"
-                      href="#basic-chip"
-                      variant="outlined"
-                      key={strength.id}
-                      clickable
-                      sx={{ color: "rgba(255, 255, 255, 0.9)", m: 1 }}
-                    />
-                  )
-              )}
-          </AccordionDetails>
-        </Accordion>
-      ))}
-    </Container>
+            sx={{
+              color: "rgba(255, 255, 255, 0.9)",
+              borderColor: "rgba(255, 255, 255, 0.9)",
+            }}
+          />
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-around",
+            backgroundColor: "rgba(0,0,0, .1)",
+            py: 2,
+          }}
+        >
+          <Avatar
+            alt="User profile picture"
+            src={user?.person?.picture}
+            sx={{ width: 150, height: 150, boxShadow: 3 }}
+          />
+        </Box>
+        {skill ? <SkillInfo /> : <UserInfo />}
+      </Container>
+    </>
   );
 };
 

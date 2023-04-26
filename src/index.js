@@ -8,14 +8,29 @@ import "@fontsource/roboto/700.css";
 import "./styles/index.css";
 import { LoadingProvider } from "./context/loading.context";
 import { UserProvider } from "./context/user.context";
+import { WelcomeProvider } from "./context/welcome.context";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { SkillProvider } from "./context/skill.context";
+
+const darkTheme = createTheme({
+  palette: {
+    mode: "dark",
+  },
+});
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <LoadingProvider>
-      <UserProvider>
-        <App />
-      </UserProvider>
-    </LoadingProvider>
+    <ThemeProvider theme={darkTheme}>
+      <WelcomeProvider>
+        <LoadingProvider>
+          <UserProvider>
+            <SkillProvider>
+              <App />
+            </SkillProvider>
+          </UserProvider>
+        </LoadingProvider>
+      </WelcomeProvider>
+    </ThemeProvider>
   </React.StrictMode>
 );
