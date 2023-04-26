@@ -29,6 +29,9 @@ const MyTextField = styled(TextField)({
     "& fieldset": {
       borderColor: "rgba(0, 0, 0, 0.2)",
     },
+    "& .MuiInputBase-input:-webkit-autofill": {
+      WebkitBoxShadow: "0 0 0 1000px rgba(0, 0, 0, .5) inset",
+    },
   },
 });
 
@@ -122,6 +125,7 @@ const InputCard = () => {
         <MyTextField
           id="outlined-basic"
           label="User id"
+          color="warning"
           InputLabelProps={{
             style: { color: "rgba(0, 0, 0, 0.6)" },
           }}
