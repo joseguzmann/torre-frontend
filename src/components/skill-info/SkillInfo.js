@@ -2,29 +2,22 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
-  Avatar,
   Box,
-  Chip,
-  Typography,
-  Divider,
-  Tooltip,
-  IconButton,
-  Grid,
   Card,
   CardContent,
-  CardActions,
+  Grid,
+  IconButton,
   Link,
+  Tooltip,
+  Typography,
 } from "@mui/material";
 
-import WestIcon from "@mui/icons-material/West";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import WestIcon from "@mui/icons-material/West";
 
-import { useUser } from "../../context/user.context";
 import { useSkill } from "../../context/skill.context";
-import { useEffect } from "react";
 
 const SkillInfo = () => {
-  const { user, setUser } = useUser();
   const { skill, setSkill } = useSkill();
 
   return (
@@ -67,7 +60,7 @@ const SkillInfo = () => {
                 textTransform: "uppercase",
               }}
             >
-              {skill?.info?.name.toUpperCase()}
+              {skill?.info?.name.toUpperCase() || "Unavailable"}
             </Typography>
           </Grid>
           <Grid item xs={4}></Grid>
@@ -105,7 +98,7 @@ const SkillInfo = () => {
             fontWeight: "lighter",
           }}
         >
-          Recommendations : {skill?.info?.recommendations}
+          Recommendations : {skill?.info?.recommendations || "Unavailable"}
         </Typography>
       </Box>
       <Accordion
@@ -150,7 +143,7 @@ const SkillInfo = () => {
             }}
           >
             {skill?.relatedInfo?.relatedExperiences.map((experience) => (
-              <Grid item xs={6}>
+              <Grid item xs={9}>
                 <Card
                   sx={{
                     backgroundColor: "rgba(0,0,0,.7)",

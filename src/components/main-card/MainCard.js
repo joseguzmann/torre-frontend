@@ -1,16 +1,13 @@
-import { Box, Chip, Container, Typography, Avatar } from "@mui/material";
+import { Avatar, Box, Chip, Container, Typography } from "@mui/material";
 
-import { useLoading } from "../../context/loading.context";
-import { useUser } from "../../context/user.context";
-import UserInfo from "../user-info/UserInfo";
 import { useSkill } from "../../context/skill.context";
+import { useUser } from "../../context/user.context";
 import SkillInfo from "../skill-info/SkillInfo";
-// import user from "./user?.json";
+import UserInfo from "../user-info/UserInfo";
 
 const MainCard = () => {
   const { user, setUser } = useUser();
   const { skill, setSkill } = useSkill();
-  const { loading, setLoading } = useLoading();
 
   return (
     <>
@@ -35,7 +32,7 @@ const MainCard = () => {
               textTransform: "uppercase",
             }}
           >
-            {user?.person?.name}
+            {user?.person?.name || "Unavailable"}
           </Typography>
           <Chip
             label="CHANGE USER"

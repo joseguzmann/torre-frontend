@@ -1,9 +1,5 @@
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Container } from "@mui/material";
 import { PropagateLoader } from "react-spinners";
-import { useLoading } from "../../context/loading.context";
-
-import icon from "../../assets/torre-icon.png";
-// import user from "./user?.json";
 
 const LoadingCard = () => {
   return (

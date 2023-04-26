@@ -6,6 +6,11 @@ const fetchUser = async (id) => {
   const PROXY_URL = process.env.REACT_APP_CORS_PROXY;
   const BASE_URL = `${PROXY_URL}http://torre.bio/api/bios/`;
   const response = await fetch(`${BASE_URL}${id}`);
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+
   const data = await response.json();
   return data;
 };
@@ -19,6 +24,11 @@ const fetchRelatedExperiences = async (user_id, skill_id) => {
   const PROXY_URL = process.env.REACT_APP_CORS_PROXY;
   const BASE_URL = `${PROXY_URL}https://torre.co/api/genome/bios/${user_id}/strengths-skills/${skill_id}/detail`;
   const response = await fetch(BASE_URL);
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+
   const data = await response.json();
   return data;
 };
@@ -46,6 +56,11 @@ const fetchUsersWithSimilarSkill = async (skill_id, proficiency) => {
   };
 
   const response = await fetch(BASE_URL, requestOptions);
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+
   const data = await response.json();
   return data;
 };

@@ -2,7 +2,6 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
-  Avatar,
   Box,
   Chip,
   Typography,
@@ -10,9 +9,9 @@ import {
 
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
-import { useUser } from "../../context/user.context";
-import { useSkill } from "../../context/skill.context";
 import { useLoading } from "../../context/loading.context";
+import { useSkill } from "../../context/skill.context";
+import { useUser } from "../../context/user.context";
 import {
   fetchRelatedExperiences,
   fetchUsersWithSimilarSkill,
@@ -47,7 +46,6 @@ const UserInfo = () => {
         relatedInfo: relatedExperiencesData,
         relatedUsers: relatedUsersData,
       };
-      console.log(newSkillObject);
       setSkill(newSkillObject);
     } catch (error) {
       console.log(error);
@@ -74,7 +72,7 @@ const UserInfo = () => {
             fontWeight: "lighter",
           }}
         >
-          {user?.person?.professionalHeadline}
+          {user?.person?.professionalHeadline || "Unavailable"}
         </Typography>
       </Box>
       <Box
@@ -93,9 +91,20 @@ const UserInfo = () => {
             color: "rgba(255,255,255, 0.9)",
             fontWeight: "lighter",
             textTransform: "uppercase",
+            px: 1,
           }}
         >
-          Skills and interests:
+          Skills and interests
+        </Typography>
+        <Typography
+          variant="body"
+          sx={{
+            color: "#34b1eb",
+            fontWeight: "lighter",
+            px: 1,
+          }}
+        >
+          (Click on anyone)
         </Typography>
       </Box>
       {proficiencyList.map((proficiency, index) => (
@@ -134,10 +143,13 @@ const UserInfo = () => {
               color: "white",
             }}
           >
-            {user?.strengths &&
-              user?.strengths.map(
-                (strength) =>
-                  strength.proficiency === proficiency && (
+            {user?.strengths.filter(
+              (strength) => strength.proficiency == proficiency
+            ).length > 0 ? (
+              <>
+                {user?.strengths
+                  .filter((strength) => strength.proficiency == proficiency)
+                  .map((strength, index, array) => (
                     <Chip
                       label={strength.name}
                       component="a"
@@ -151,8 +163,19 @@ const UserInfo = () => {
                       }}
                       onClick={() => selectSkill(strength)}
                     />
-                  )
-              )}
+                  ))}
+              </>
+            ) : (
+              <Typography
+                variant="body"
+                sx={{
+                  color: "rgba(255,255,255, 0.9)",
+                  fontWeight: "lighter",
+                }}
+              >
+                Empty
+              </Typography>
+            )}
           </AccordionDetails>
         </Accordion>
       ))}

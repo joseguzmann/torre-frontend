@@ -1,19 +1,21 @@
 import {
+  Alert,
   Box,
-  Container,
-  Typography,
-  TextField,
   Button,
+  Container,
+  Snackbar,
+  TextField,
+  Typography,
   styled,
 } from "@mui/material";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useLoading } from "../../context/loading.context";
+import { useToast } from "../../context/toast.context";
 import { useUser } from "../../context/user.context";
 import { fetchUser } from "../../lib/api";
 
 import icon from "../../assets/torre-icon.png";
-// import user from "./user?.json";
 
 const MyTextField = styled(TextField)({
   "& .MuiOutlinedInput-root": {
@@ -30,7 +32,12 @@ const MyTextField = styled(TextField)({
       borderColor: "rgba(0, 0, 0, 0.2)",
     },
     "& .MuiInputBase-input:-webkit-autofill": {
-      WebkitBoxShadow: "0 0 0 1000px rgba(0, 0, 0, .5) inset",
+      WebkitBoxShadow: "0 0 0 1000px rgba(145, 119, 145, 1) inset !important",
+      backgroundColor: "rgba(0, 0, 0, .4) !important",
+    },
+    "& .MuiInputBase-input:-internal-autofill-selected": {
+      WebkitBoxShadow: "0 0 0 1000px rgba(145, 119, 145, 1) inset !important",
+      backgroundColor: "rgba(0, 0, 0, .4) !important",
     },
   },
 });
@@ -64,95 +71,115 @@ const MyButton = styled(Button)({
 const InputCard = () => {
   const { user, setUser } = useUser();
   const { loading, setLoading } = useLoading();
+  const { toast, setToast } = useToast();
 
   const [id, setId] = useState("");
-
-  useEffect(() => {}, []);
 
   const handleSubmit = async () => {
     setLoading(true);
     try {
       const userData = await fetchUser(id);
-      console.log(userData);
       setUser(userData);
     } catch (error) {
       console.log(error);
+      setToast("User not found. Please try again.");
     }
     setLoading(false);
   };
 
   return (
-    <Container maxWidth="sm">
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <img src={icon} alt="Icon of Torre" width={"50%"} />
-      </Box>
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-around",
-          backgroundColor: "rgba(0,0,0, .4)",
-          padding: 2,
-          borderRadius: 2,
-          boxShadow: 2,
-          my: 1,
-        }}
-      >
-        <Typography
-          variant="body1"
+    <>
+      <Container maxWidth="sm">
+        <Box
           sx={{
-            color: "#ffddcc",
-            fontWeight: "lighter",
-            textTransform: "uppercase",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
           }}
         >
-          Please enter the user ID:
-        </Typography>
-      </Box>
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <MyTextField
-          id="outlined-basic"
-          label="User id"
-          color="warning"
-          InputLabelProps={{
-            style: { color: "rgba(0, 0, 0, 0.6)" },
-          }}
-          variant="outlined"
-          value={id}
-          onChange={(event) => setId(event.target.value)}
-          className="input"
+          <img src={icon} alt="Icon of Torre" width={"50%"} />
+        </Box>
+        <Box
           sx={{
-            backgroundColor: "rgba(0,0,0, .1)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-around",
+            backgroundColor: "rgba(0,0,0, .4)",
+            padding: 2,
             borderRadius: 2,
             boxShadow: 2,
             my: 1,
-            mx: 1,
-          }}
-        />
-        <MyButton
-          variant="contained"
-          type="button"
-          onClick={handleSubmit}
-          sx={{
-            mx: 1,
           }}
         >
-          SEARCH
-        </MyButton>
-      </Box>
-    </Container>
+          <Typography
+            variant="body1"
+            sx={{
+              color: "#ffddcc",
+              fontWeight: "lighter",
+              textTransform: "uppercase",
+            }}
+          >
+            Please enter your user ID:
+          </Typography>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <MyTextField
+            id="outlined-basic"
+            label="User id"
+            color="warning"
+            InputLabelProps={{
+              style: { color: "rgba(0, 0, 0, 0.6)" },
+            }}
+            variant="outlined"
+            value={id}
+            onChange={(event) => setId(event.target.value)}
+            className="input"
+            sx={{
+              backgroundColor: "rgba(145, 119, 145, 1)",
+              borderRadius: 2,
+              boxShadow: 2,
+              my: 1,
+              mx: 1,
+            }}
+          />
+          <MyButton
+            variant="contained"
+            type="button"
+            onClick={() => {
+              if (id) {
+                handleSubmit();
+              } else {
+                setToast("User ID could not be empty!");
+              }
+            }}
+            sx={{
+              mx: 1,
+            }}
+          >
+            SEARCH
+          </MyButton>
+        </Box>
+      </Container>
+      <Snackbar
+        open={toast}
+        autoHideDuration={6000}
+        onClose={() => setToast(null)}
+      >
+        <Alert
+          severity="error"
+          sx={{ width: "100%" }}
+          onClose={() => setToast(null)}
+        >
+          Error: {toast}
+        </Alert>
+      </Snackbar>
+    </>
   );
 };
 
