@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 const SkillContext = createContext({
   skill: null,
@@ -6,8 +6,17 @@ const SkillContext = createContext({
 });
 
 export function SkillProvider({ children }) {
-  const [skill, setSkill] = useState(null);
+  const [skill, setSkill] = useState(() => {
+    const storedSkill = localStorage.getItem("skill");
+    return storedSkill ? JSON.parse(storedSkill) : null;
+  });
+
+  useEffect(() => {
+    localStorage.setItem("skill", JSON.stringify(skill));
+  }, [skill]);
+
   const value = { skill, setSkill };
+
   return (
     <SkillContext.Provider value={value}>{children}</SkillContext.Provider>
   );

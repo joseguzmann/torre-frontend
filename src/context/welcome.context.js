@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 const WelcomeContext = createContext({
   welcome: null,
@@ -6,8 +6,22 @@ const WelcomeContext = createContext({
 });
 
 export function WelcomeProvider({ children }) {
-  const [welcome, setWelcome] = useState(true);
+  const [welcome, setWelcome] = useState(() => {
+    const storedWelcome = localStorage.getItem("welcome");
+
+    // Exists and is false => false
+    // No exists => true
+    // Exists and is true => true
+
+    return !storedWelcome || storedWelcome === "true" ? true : false;
+  });
+
+  useEffect(() => {
+    localStorage.setItem("welcome", JSON.stringify(welcome));
+  }, [welcome]);
+
   const value = { welcome, setWelcome };
+
   return (
     <WelcomeContext.Provider value={value}>{children}</WelcomeContext.Provider>
   );
