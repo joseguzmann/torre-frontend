@@ -40,7 +40,7 @@ const SkillDetails = () => {
               skill?.info?.proficiency.slice(1)}
         </span>
         <span className="normal-text">
-          Recomendations : {skill?.info?.recomendations || "0"}
+          Recommendations : {skill?.info?.recommendations || "0"}
         </span>
       </div>
       <div className="selection-container">
