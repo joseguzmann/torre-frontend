@@ -6,7 +6,7 @@ import "./LoadingCard.css";
 const LoadingCard = () => {
   return (
     <Container maxWidth="sm">
-      <Box className="LoadingBox">
+      <Box className="loading-box">
         <PropagateLoader color="rgba(255, 255, 255, .4)" size={37} />
       </Box>
     </Container>

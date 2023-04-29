@@ -7,6 +7,7 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { LoadingProvider } from "./context/loading.context";
 import { UserProvider } from "./context/user.context";
 import { WelcomeProvider } from "./context/welcome.context";
+import { ProficiencyProvider } from "./context/proficiency.context";
 import { SkillProvider } from "./context/skill.context";
 import { ToastProvider } from "./context/toast.context";
 
@@ -29,11 +30,13 @@ root.render(
       <WelcomeProvider>
         <LoadingProvider>
           <UserProvider>
-            <SkillProvider>
-              <ToastProvider>
-                <App />
-              </ToastProvider>
-            </SkillProvider>
+            <ProficiencyProvider>
+              <SkillProvider>
+                <ToastProvider>
+                  <App />
+                </ToastProvider>
+              </SkillProvider>
+            </ProficiencyProvider>
           </UserProvider>
         </LoadingProvider>
       </WelcomeProvider>

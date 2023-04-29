@@ -1,0 +1,76 @@
+.legend-2-recommend {
+    padding-bottom: 30px !important;
+}
+
+.legend-1-details {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: rgba(0,0,0, .4);
+    box-shadow: 10px;
+    padding: 2%;
+}
+
+.inside-div .legend-1-details span {
+    color: #ffddcc;
+    font-weight: lighter;
+}
+
+.list-flexbox {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.list-flexbox .flex-item {
+    background: rgba(0, 0, 0, .4);
+    padding: 15px;
+    border-radius: 10px;
+    transition: box-shadow 0.2s ease; 
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    width: 28%;
+    min-height: 200px;
+  }
+  
+  .list-flexbox .flex-item:hover {
+    box-shadow: 0 0 10px rgba(209, 223, 73, .1); 
+  }
+
+.list-flexbox .flex-item span {
+    line-height: 2;
+}
+
+.list-flexbox .flex-item .text1 {
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.list-flexbox .flex-item .text1 {
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.list-flexbox .flex-item .text2 {
+    font-size: 25px;
+    color: rgba(209, 223, 73, .8);
+    line-height: 1.5;
+}
+
+.list-flexbox .flex-item .text3 {
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.list-flexbox .flex-item .text4 {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.profile-picture {
+    width: 50px;
+    border-radius: 100%;
+}

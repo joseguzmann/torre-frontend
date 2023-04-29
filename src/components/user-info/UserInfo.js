@@ -55,58 +55,6 @@ const UserInfo = () => {
 
   return (
     <>
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-around",
-          backgroundColor: "rgba(0,0,0, .4)",
-          padding: 1,
-          boxShadow: 2,
-        }}
-      >
-        <Typography
-          variant="body2"
-          sx={{
-            color: "#ffddcc",
-            fontWeight: "lighter",
-          }}
-        >
-          {user?.person?.professionalHeadline || "Unavailable"}
-        </Typography>
-      </Box>
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          backgroundColor: "rgba(0,0,0, .1)",
-          py: 2,
-          color: "white",
-        }}
-      >
-        <Typography
-          variant="body"
-          sx={{
-            color: "rgba(255,255,255, 0.9)",
-            fontWeight: "lighter",
-            textTransform: "uppercase",
-            px: 1,
-          }}
-        >
-          Skills and interests
-        </Typography>
-        <Typography
-          variant="body"
-          sx={{
-            color: "#34b1eb",
-            fontWeight: "lighter",
-            px: 1,
-          }}
-        >
-          (Click on anyone)
-        </Typography>
-      </Box>
       {proficiencyList.map((proficiency, index) => (
         <Accordion
           sx={{

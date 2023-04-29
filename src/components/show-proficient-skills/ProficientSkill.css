@@ -1,0 +1,18 @@
+.legend-2-select {
+    padding-top: 2 !important;
+    padding-bottom: 5px !important;
+}
+
+.legend-2-not-found {
+    padding: 30px !important;
+}
+
+.normal-text {
+    color: #DADCE0;
+    font-weight: lighter;
+    font-size: large;
+}
+
+.content-dashboard {
+    flex-wrap: wrap !important;
+}

@@ -1,0 +1,108 @@
+.main-div {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-content: center;
+    min-width: 95%;
+}
+
+.inside-div .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgba(0,0,0, .4);
+    padding: 4vh;
+    border-radius: 20px 20px 0px 0px;
+    box-shadow: 2;
+    height: 4vh;
+}
+
+.inside-div .header span {
+    color: #DADCE0;
+    font-weight: lighter;
+    text-transform: uppercase;
+}
+
+.inside-div .content {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background: rgba(0,0,0, .1);
+    padding: 10px;
+}
+
+.inside-div-1 {
+    flex-basis: 25%;
+}
+
+.inside-div-2 {
+    flex-basis: 72%;
+}
+
+.inside-div .legend-1 {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: rgba(0,0,0, .4);
+    padding: 4%;
+    box-shadow: 10px;
+}
+
+.inside-div .legend-1 span {
+    color: #ffddcc;
+    font-weight: lighter;
+}
+
+.inside-div .legend-2 {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: rgba(0,0,0, .1);
+    padding: 3%;
+    color: white;
+}
+
+.inside-div .legend-2 .text-1 {
+    color: rgba(255,255,255, 0.9);
+    font-weight: lighter;
+    text-transform: uppercase;
+    padding: 2%;
+}
+
+.inside-div .legend-2 .text-2 {
+    color: #34b1eb;
+    font-weight: lighter;
+    padding: 1%;
+}
+
+.small-menu {
+    background-color: rgba(0,0,0,.3);
+    border-top: solid 1px #343434;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s, transform 0.2s;
+  }
+  
+  .small-menu:hover {
+    background-color: rgba(0,0,0,.2);
+  }
+  
+  .small-menu:active {
+    transform: scale(0.95);
+  }
+  
+  .small-menu .item {
+    color: #ffddcc;
+    font-weight: lighter;
+    text-transform: uppercase;
+  }
+  
+  .small-menu-selected {
+    transform: scale(0.97);
+    background-color: rgba(0,0,0,.2);
+  }
+  

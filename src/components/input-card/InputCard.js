@@ -63,15 +63,15 @@ const InputCard = () => {
   return (
     <>
       <Container maxWidth="sm">
-        <Box className="ImageBox">
+        <Box className="image-box">
           <img src={icon} alt="Icon of Torre" width={"50%"} />
         </Box>
-        <Box className="PromptBox">
-          <Typography variant="body1" className="PromptText">
+        <Box className="prompt-box">
+          <Typography variant="body1" className="prompt-text">
             Please enter your user ID:
           </Typography>
         </Box>
-        <Box className="FormBox">
+        <Box className="form-box">
           <MyTextField
             id="outlined-basic"
             label="User id"
