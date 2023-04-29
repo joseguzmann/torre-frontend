@@ -1,16 +1,22 @@
 # Torre Frontend
 
-This is my front-end application for Torre's technical test, built with React and the MUI component library.
+This is my front-end application for Torre's technical test, built with React.
 
 ## Project info
 
-HTTP requests are made through with Fetch API through a CORS proxy hosted on Heroku (**[https://tranquil-thicket-22159.herokuapp.com/](https://tranquil-thicket-22159.herokuapp.com/)**), using the following source code **[https://github.com/Rob--W/cors-anywhere/](https://github.com/Rob--W/cors-anywhere/)**
+HTTP requests are made through with Fetch API through a CORS proxy hosted on Heroku: 
+
+https://enigmatic-thicket-97495.herokuapp.com
+
+I have built this CORS proxy with Flask and you could see its source code on this repository:
+
+https://github.com/joseguzmann/torre-backend
 
 Endpoints used are:
 
-GET https://torre.bio/api/bios/<br>
-GET https://torre.co/api/genome/bios/<user_id>/strengths-skills/<skill_id>/detail<br>
-POST https://search.torre.co/people/_search<br>
+GET https://enigmatic-thicket-97495.herokuapp.com/user/{user_id}
+GET https://enigmatic-thicket-97495.herokuapp.com/user/{user_id}/skill/{skill_id}/
+GET https://enigmatic-thicket-97495.herokuapp.com/search/users/skill/{skill_name}/proficiency/{proficiency}
 
 The front-end of the application is hosted on Firebase and can be accessed through the following links:
 
