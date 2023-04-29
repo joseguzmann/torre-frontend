@@ -14,9 +14,9 @@ https://github.com/joseguzmann/torre-backend
 
 Endpoints used are:
 
-GET https://enigmatic-thicket-97495.herokuapp.com/user/{user_id}
-GET https://enigmatic-thicket-97495.herokuapp.com/user/{user_id}/skill/{skill_id}/
-GET https://enigmatic-thicket-97495.herokuapp.com/search/users/skill/{skill_name}/proficiency/{proficiency}
+GET https://enigmatic-thicket-97495.herokuapp.com/user/{user_id} <br />
+GET https://enigmatic-thicket-97495.herokuapp.com/user/{user_id}/skill/{skill_id}/ <br />
+GET https://enigmatic-thicket-97495.herokuapp.com/search/users/skill/{skill_name}/proficiency/{proficiency} <br />
 
 The front-end of the application is hosted on Firebase and can be accessed through the following links:
 
