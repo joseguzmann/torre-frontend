@@ -1,28 +1,11 @@
 /**
+ * Function to retrieve information about Torre user
  * @param id - ID of the user being searched for on Torre
  * @returns - JSON body of HTTP Response object
  */
 const fetchUser = async (id) => {
   const PROXY_URL = process.env.REACT_APP_CORS_PROXY;
-  const BASE_URL = `${PROXY_URL}http://torre.bio/api/bios/`;
-  const response = await fetch(`${BASE_URL}${id}`);
-
-  if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`);
-  }
-
-  const data = await response.json();
-  return data;
-};
-
-/**
- * @param  user_id - User ID from which to retrieve experiences
- * @param  skill_id - Skill ID from which to retrieve experiences
- * @returns - JSON body of HTTP Response object
- */
-const fetchRelatedExperiences = async (user_id, skill_id) => {
-  const PROXY_URL = process.env.REACT_APP_CORS_PROXY;
-  const BASE_URL = `${PROXY_URL}https://torre.co/api/genome/bios/${user_id}/strengths-skills/${skill_id}/detail`;
+  const BASE_URL = `${PROXY_URL}/user/${id}`;
   const response = await fetch(BASE_URL);
 
   if (!response.ok) {
@@ -34,28 +17,35 @@ const fetchRelatedExperiences = async (user_id, skill_id) => {
 };
 
 /**
- *
- * @param skill_id - Name of the skill we are trying to find in users
+ * Function to retrieve user details regarding specific skill
+ * @param  user_id - User ID from which to retrieve details
+ * @param  skill_id - Skill ID from which to retrieve details
+ * @returns - JSON body of HTTP Response object
+ */
+const fetchRelatedExperiences = async (user_id, skill_id) => {
+  const PROXY_URL = process.env.REACT_APP_CORS_PROXY;
+  const BASE_URL = `${PROXY_URL}/user/${user_id}/skill/${skill_id}`;
+  const response = await fetch(BASE_URL);
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+
+  const data = await response.json();
+  return data;
+};
+
+/**
+ * Function to search and retrieve list of users that have proficiency on some skill
+ * @param skill_name - Name of the skill we are trying to find in users
  * @param proficiency - Proficiency of the skill we are trying to find in users
  * @returns - JSON body of HTTP Response object
  */
-const fetchUsersWithSimilarSkill = async (skill_id, proficiency) => {
+const fetchUsersWithSimilarSkill = async (skill_name, proficiency) => {
   const PROXY_URL = process.env.REACT_APP_CORS_PROXY;
-  const BASE_URL = `${PROXY_URL}https://search.torre.co/people/_search`;
+  const BASE_URL = `${PROXY_URL}/search/users/skill/${skill_name}/proficiency/${proficiency}`;
 
-  const bodyData = {
-    and: [
-      { "skill/role": { text: `${skill_id}`, proficiency: `${proficiency}` } },
-    ],
-  };
-
-  const requestOptions = {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(bodyData),
-  };
-
-  const response = await fetch(BASE_URL, requestOptions);
+  const response = await fetch(BASE_URL);
 
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`);

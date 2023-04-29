@@ -2,14 +2,14 @@ import { useLoading } from "../../context/loading.context";
 import { useSkill } from "../../context/skill.context";
 import { useUser } from "../../context/user.context";
 
-import { Chip, Typography } from "@mui/material";
+import { Chip } from "@mui/material";
 
-import "./ProficientSkill.css";
 import { useProficiency } from "../../context/proficiency.context";
 import {
   fetchRelatedExperiences,
   fetchUsersWithSimilarSkill,
 } from "../../lib/api";
+import "./ProficientSkill.css";
 
 const ProficientSkill = () => {
   const { user, setUser } = useUser();

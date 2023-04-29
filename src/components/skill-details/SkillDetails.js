@@ -1,22 +1,17 @@
-import { useLoading } from "../../context/loading.context";
+import { useState } from "react";
+
 import { useSkill } from "../../context/skill.context";
 import { useUser } from "../../context/user.context";
 
-import { Chip, Typography, Link } from "@mui/material";
+import { Chip, Link } from "@mui/material";
 
 import "./SkillDetails.css";
-import { useProficiency } from "../../context/proficiency.context";
-import {
-  fetchRelatedExperiences,
-  fetchUsersWithSimilarSkill,
-} from "../../lib/api";
-import { Avatar } from "../../../node_modules/@mui/material/index";
 
 const SkillDetails = () => {
   const { user, setUser } = useUser();
   const { skill, setSkill } = useSkill();
-  const { loading, setLoading } = useLoading();
-  const { proficiency, setProficiency } = useProficiency();
+
+  const [show, setShow] = useState(0);
 
   return (
     <div className="inside-div inside-div-2">
@@ -48,97 +43,116 @@ const SkillDetails = () => {
           Recomendations : {skill?.info?.recomendations || "0"}
         </span>
       </div>
-      <div className="legend-1-details">
-        <span>Job experience:</span>
-      </div>
-      <div className="content content-dashboard">
-        <div className="list-flexbox">
-          {skill?.relatedInfo?.relatedExperiences.length > 0 ? (
-            <>
-              {skill?.relatedInfo?.relatedExperiences.map((experience) => (
-                <>
-                  <div className="flex-item">
-                    <span className="text1">
-                      {experience?.organizations[0]?.name || "Unavailable"} (
-                      {experience?.category || "Unavailable"})
-                    </span>
-                    <br />
-                    <span className="text2">
-                      {experience?.name || "Unavailable"}
-                    </span>
-                    <br />
-                    <span className="text3">
-                      From {experience?.fromMonth || "Unavailable"},{" "}
-                      {experience?.fromYear || "Unavailable"} to{" "}
-                      {experience?.toMonth || "Unavailable"},{" "}
-                      {experience?.toYear || "Unavailable"}
-                    </span>
-                    <br />
-                    <span className="text4">
-                      {experience?.remote ? "Remote" : "On-site"}
-                    </span>
-                  </div>
-                </>
-              ))}
-            </>
-          ) : (
-            <span className="normal-text">
-              There are no experiences with this skill
-            </span>
-          )}
+      <div className="selection-container">
+        <div
+          className={
+            show == 0
+              ? "legend-1-details legend-1-details-selected"
+              : "legend-1-details"
+          }
+          onClick={() => setShow(0)}
+        >
+          <span>Job experience</span>
+        </div>
+        <div
+          className={
+            show == 1
+              ? "legend-1-details legend-1-details-selected"
+              : "legend-1-details"
+          }
+          onClick={() => setShow(1)}
+        >
+          <span>People with same skill proficiency</span>
         </div>
       </div>
-      <div className="legend-1-details">
-        <span>People with same skill proficiency:</span>
-      </div>
-      <div className="content content-dashboard">
-        <div className="list-flexbox">
-          {skill?.relatedUsers?.results.length > 0 ? (
-            <>
-              {skill?.relatedUsers?.results.map(
-                (result) =>
-                  result.username != user.person.publicId && (
-                    <>
-                      <div className="flex-item">
-                        <img
-                          alt="User profile"
-                          className="profile-picture"
-                          src={result?.picture}
-                        />
-                        <br />
-                        <span className="text1">
-                          <Link
-                            href={`https://torre.co/${result?.username}`}
-                            underline="hover"
-                            variant="h5"
-                          >
-                            {result?.name || "Unavailable"}
-                          </Link>
-                        </span>
-                        <br />
-                        <span className="text2">
-                          {result?.professionalHeadline || "Unavailable"}
-                        </span>
-                        <br />
-                        <span className="text3">
-                          {result?.locationName || "Unavailable"}
-                        </span>
-                        <br />
-                        <span className="text4">
-                          Username: {result?.username || "Unavailable"}
-                        </span>
-                      </div>
-                    </>
-                  )
-              )}
-            </>
-          ) : (
-            <span className="normal-text">
-              There are no experiences with this skill
-            </span>
-          )}
+      {show == 0 ? (
+        <div className="content content-dashboard">
+          <div className="list-grid">
+            {skill?.relatedInfo?.relatedExperiences.length > 0 ? (
+              <>
+                {skill?.relatedInfo?.relatedExperiences.map((experience) => (
+                  <>
+                    <div className="grid-item">
+                      <span className="text1">
+                        {experience?.organizations[0]?.name || "Unavailable"} (
+                        {experience?.category || "Unavailable"})
+                      </span>
+                      <br />
+                      <span className="text2">
+                        {experience?.name || "Unavailable"}
+                      </span>
+                      <br />
+                      <span className="text3">
+                        From {experience?.fromMonth || "Unavailable"},{" "}
+                        {experience?.fromYear || "Unavailable"} to{" "}
+                        {experience?.toMonth || "Unavailable"},{" "}
+                        {experience?.toYear || "Unavailable"}
+                      </span>
+                      <br />
+                      <span className="text4">
+                        {experience?.remote ? "Remote" : "On-site"}
+                      </span>
+                    </div>
+                  </>
+                ))}
+              </>
+            ) : (
+              <span className="normal-text">
+                There are no experiences with this skill
+              </span>
+            )}
+          </div>
         </div>
-      </div>
+      ) : show == 1 ? (
+        <div className="content content-dashboard">
+          <div className="list-grid">
+            {skill?.relatedUsers?.results.length > 0 ? (
+              <>
+                {skill?.relatedUsers?.results.map(
+                  (result) =>
+                    result.username != user.person.publicId && (
+                      <>
+                        <div className="grid-item">
+                          <img
+                            alt="User profile"
+                            className="profile-picture"
+                            src={result?.picture}
+                          />
+                          <br />
+                          <span className="text1">
+                            <Link
+                              href={`https://torre.co/${result?.username}`}
+                              underline="hover"
+                              variant="h5"
+                            >
+                              {result?.name || "Unavailable"}
+                            </Link>
+                          </span>
+                          <br />
+                          <span className="text2">
+                            {result?.professionalHeadline || "Unavailable"}
+                          </span>
+                          <br />
+                          <span className="text3">
+                            {result?.locationName || "Unavailable"}
+                          </span>
+                          <br />
+                          <span className="text4">
+                            Username: {result?.username || "Unavailable"}
+                          </span>
+                        </div>
+                      </>
+                    )
+                )}
+              </>
+            ) : (
+              <span className="normal-text">
+                There are no experiences with this skill
+              </span>
+            )}
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 };

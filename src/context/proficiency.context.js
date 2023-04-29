@@ -6,16 +6,14 @@ const ProficiencyContext = createContext({
 });
 
 export function ProficiencyProvider({ children }) {
-  // const [proficiency, setProficiency] = useState(() => {
-  //   const storedProficiency = localStorage.getItem("proficiency");
-  //   return storedProficiency ? JSON.parse(storedProficiency) : null;
-  // });
+  const [proficiency, setProficiency] = useState(() => {
+    const storedProficiency = localStorage.getItem("proficiency");
+    return storedProficiency ? JSON.parse(storedProficiency) : null;
+  });
 
-  const [proficiency, setProficiency] = useState(null);
-
-  // useEffect(() => {
-  //   localStorage.setItem("proficiency", JSON.stringify(proficiency));
-  // }, [proficiency]);
+  useEffect(() => {
+    localStorage.setItem("proficiency", JSON.stringify(proficiency));
+  }, [proficiency]);
 
   const value = { proficiency, setProficiency };
 

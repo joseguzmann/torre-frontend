@@ -1,16 +1,8 @@
-import { useLoading } from "../../context/loading.context";
-import { useSkill } from "../../context/skill.context";
-import { useUser } from "../../context/user.context";
-
 import icon from "../../assets/torre-icon.png";
 
 import "./Dashboard.css";
 
 const Dashboard = () => {
-  const { user, setUser } = useUser();
-  const { skill, setSkill } = useSkill();
-  const { loading, setLoading } = useLoading();
-
   return (
     <div className="inside-div inside-div-2">
       <div className="header dashboard-header">

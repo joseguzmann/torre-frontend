@@ -6,12 +6,10 @@ const SkillContext = createContext({
 });
 
 export function SkillProvider({ children }) {
-  // const [skill, setSkill] = useState(() => {
-  //   const storedSkill = localStorage.getItem("skill");
-  //   return storedSkill ? JSON.parse(storedSkill) : null;
-  // });
-
-  const [skill, setSkill] = useState(null);
+  const [skill, setSkill] = useState(() => {
+    const storedSkill = localStorage.getItem("skill");
+    return storedSkill ? JSON.parse(storedSkill) : null;
+  });
 
   useEffect(() => {
     localStorage.setItem("skill", JSON.stringify(skill));

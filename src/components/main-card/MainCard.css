@@ -7,6 +7,28 @@
     min-width: 95%;
 }
 
+@media (max-width: 900px) {
+    .main-div {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        align-content: center;
+        min-width: 95%;
+    }
+
+    .inside-div-1 {
+        margin-bottom: 100px;
+    }
+  }
+
+  @media (max-width: 600px) {
+
+    .inside-div-1 {
+        margin-bottom: 50px;
+    }
+  }
+
 .inside-div .header {
     display: flex;
     align-items: center;
