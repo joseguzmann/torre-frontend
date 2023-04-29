@@ -44,6 +44,3 @@ Start the web application
 npm run start
 ```
 
-# <<<<<<< HEAD
-
-> > > > > > > b7fe0c20555618a6ce0c239f790776c87d33e2d3
